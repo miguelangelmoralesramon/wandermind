@@ -1,0 +1,136 @@
+.location-details-container {
+    background-color: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    margin-bottom: 2rem;
+  }
+  
+  .location-header {
+    margin-bottom: 2rem;
+    
+    h2 {
+      font-size: 2.2rem;
+      color: #1a73e8;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+    
+    .location-description {
+      font-size: 1.1rem;
+      color: #555;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+    
+    .coordinates {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      font-size: 0.9rem;
+      color: #666;
+      
+      .coordinate {
+        background-color: #f5f5f5;
+        padding: 0.5rem 0.75rem;
+        border-radius: 4px;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+      }
+    }
+  }
+  
+  .location-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .info-section {
+    h3 {
+      font-size: 1.4rem;
+      color: #1a73e8;
+      margin-bottom: 1rem;
+      position: relative;
+      padding-bottom: 0.75rem;
+      
+      &:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background: linear-gradient(to right, #1a73e8, #34a853);
+        border-radius: 1.5px;
+      }
+    }
+    
+    p {
+      line-height: 1.7;
+      color: #333;
+    }
+  }
+  
+  .action-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    
+    .map-btn, .save-btn, .share-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      border-radius: 30px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+      }
+      
+      &:active {
+        transform: translateY(1px);
+      }
+      
+      .btn-icon {
+        font-size: 1.2rem;
+      }
+    }
+    
+    .map-btn {
+      background-color: #1a73e8;
+      color: white;
+      
+      &:hover {
+        background-color: #1665d8;
+      }
+    }
+    
+    .save-btn {
+      background-color: #fbbc04;
+      color: white;
+      border: none;
+      
+      &:hover {
+        background-color: #f9ab00;
+      }
+    }
+    
+    .share-btn {
+      background-color: white;
+      color: #1a73e8;
+      border: 1px solid #e0e0e0;
+      
+      &:hover {
+        background-color: #f8f9fa;
+      }
+    }
+  }

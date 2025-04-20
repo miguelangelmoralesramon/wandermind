@@ -1,0 +1,78 @@
+<div class="voice-recorder-container">
+    <h2>Voice Recorder</h2>
+    <p class="description">Ask questions about your location or what you want to see nearby.</p>
+    
+    <div class="recorder-area" [ngClass]="{'recording': isRecording, 'processed': isProcessed}">
+      <div class="recorder-content">
+        <ng-container *ngIf="!isRecording && !isProcessing && !transcription">
+          <div class="mic-placeholder">
+            <div class="mic-icon">🎤</div>
+            <p>Click the button below to start recording your question</p>
+            <p class="examples">Examples:</p>
+            <ul class="example-queries">
+              <li>"Where am I and what's the history of this place?"</li>
+              <li>"What are interesting attractions near me?"</li>
+              <li>"Tell me about the cultural significance of this area."</li>
+            </ul>
+          </div>
+        </ng-container>
+        
+        <ng-container *ngIf="isRecording">
+          <div class="recording-indicator">
+            <div class="wave-visualization">
+              <div class="wave" *ngFor="let wave of visualizationWaves"></div>
+            </div>
+            <p class="recording-text">Recording... {{recordingTime}}s</p>
+            <p class="recording-hint">Speak clearly into your microphone</p>
+          </div>
+        </ng-container>
+        
+        <ng-container *ngIf="isProcessing">
+          <div class="processing-indicator">
+            <mat-progress-spinner mode="indeterminate" diameter="50" color="primary"></mat-progress-spinner>
+            <p>Processing your query...</p>
+          </div>
+        </ng-container>
+        
+        <ng-container *ngIf="!isRecording && !isProcessing && transcription">
+          <div class="transcription-result">
+            <h3>Your Question:</h3>
+            <p class="transcribed-text">"{{transcription}}"</p>
+            <button mat-button color="primary" class="edit-btn" (click)="enableEditing()">
+              <mat-icon>edit</mat-icon> Edit
+            </button>
+          </div>
+        </ng-container>
+        
+        <ng-container *ngIf="isEditing">
+          <div class="edit-transcription">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Edit your query</mat-label>
+              <textarea matInput [(ngModel)]="transcription" placeholder="Edit your query here..."></textarea>
+            </mat-form-field>
+            <button mat-raised-button color="primary" class="save-btn" (click)="saveEdit()">Save</button>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    
+    <div class="actions">
+      <ng-container *ngIf="!isRecording && !isProcessing">
+        <button *ngIf="!transcription" mat-raised-button color="primary" class="record-btn" (click)="startRecording()">
+          <mat-icon>mic</mat-icon> Start Recording
+        </button>
+        
+        <button *ngIf="isRecording" mat-raised-button color="warn" class="stop-btn" (click)="stopRecording()">
+          <mat-icon>stop</mat-icon> Stop Recording
+        </button>
+        
+        <button *ngIf="transcription && !isProcessed" mat-raised-button color="accent" class="submit-btn" (click)="submitQuery()">
+          <mat-icon>search</mat-icon> Submit Query
+        </button>
+        
+        <button *ngIf="transcription" mat-stroked-button class="clear-btn" (click)="clearRecording()">
+          <mat-icon>delete</mat-icon> Clear
+        </button>
+      </ng-container>
+    </div>
+  </div>

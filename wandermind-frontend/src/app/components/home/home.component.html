@@ -1,0 +1,60 @@
+<section class="hero-section">
+    <div class="hero-content">
+      <h1>Discover the World Around You</h1>
+      <p>WanderMind is your AI-powered tourist guide that recognizes landmarks, provides historical context, and suggests nearby attractions.</p>
+      
+      <div class="action-buttons">
+        <button class="primary-btn" (click)="showImageUpload()">
+          <span class="icon">📸</span>
+          Upload a Photo
+        </button>
+        <button class="secondary-btn" (click)="showVoiceRecorder()">
+          <span class="icon">🎤</span>
+          Ask with Voice
+        </button>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="assets/images/world-landmarks.svg" alt="World landmarks illustration">
+    </div>
+  </section>
+  
+  <section class="features-section">
+    <h2>How It Works</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📷</div>
+        <h3>Image Recognition</h3>
+        <p>Upload a photo of a landmark or location, and our AI will identify it instantly.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔍</div>
+        <h3>Historical Insights</h3>
+        <p>Get rich historical and cultural context about the places you visit.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🗣️</div>
+        <h3>Voice Interaction</h3>
+        <p>Ask questions naturally using your voice for a hands-free experience.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🧭</div>
+        <h3>Nearby Attractions</h3>
+        <p>Discover interesting places and hidden gems in your vicinity.</p>
+      </div>
+    </div>
+  </section>
+  
+  <section *ngIf="showUploadSection" class="upload-section">
+    <app-image-upload (locationIdentified)="onLocationIdentified($event)"></app-image-upload>
+  </section>
+  
+  <section *ngIf="showVoiceSection" class="voice-section">
+    <app-voice-recorder (queryTranscribed)="onQueryTranscribed($event)"></app-voice-recorder>
+  </section>
+  
+  <section *ngIf="locationDetails" class="results-section">
+    <app-location-details [locationData]="locationDetails"></app-location-details>
+    <app-nearby-places [locationCoordinates]="locationDetails.coordinates"></app-nearby-places>
+    <app-map-view [locationData]="locationDetails"></app-map-view>
+  </section>

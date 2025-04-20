@@ -1,0 +1,69 @@
+<div class="image-upload-container">
+    <h2>Upload a Photo</h2>
+    <p class="description">Take or upload a photo of a landmark, monument, or place and let our AI identify it for you.</p>
+    
+    <div class="upload-area" 
+         [class.dragover]="isDragOver" 
+         [class.has-preview]="previewUrl"
+         (dragover)="onDragOver($event)" 
+         (dragleave)="onDragLeave($event)" 
+         (drop)="onDrop($event)">
+         
+      <ng-container *ngIf="!previewUrl">
+        <div class="upload-placeholder">
+          <div class="upload-icon">📷</div>
+          <p>Drag and drop an image here or</p>
+          <button mat-raised-button color="primary" class="upload-btn">
+            Choose File
+            <input type="file" accept="image/*" (change)="onFileSelected($event)" hidden>
+          </button>
+          <p class="or-text">or</p>
+          <button mat-raised-button color="accent" class="camera-btn" (click)="openCamera()">
+            <mat-icon>photo_camera</mat-icon> Take Photo
+          </button>
+        </div>
+      </ng-container>
+      
+      <ng-container *ngIf="previewUrl">
+        <div class="preview-container">
+          <img [src]="previewUrl" alt="Preview" class="image-preview">
+          <div class="preview-overlay">
+            <button mat-mini-fab color="warn" class="remove-btn" (click)="removeImage()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    
+    <div class="actions" *ngIf="previewUrl && !isAnalyzing && !analysisComplete">
+      <button mat-raised-button color="primary" class="analyze-btn" (click)="analyzeImage()">
+        <mat-icon>search</mat-icon> Analyze Image
+      </button>
+    </div>
+    
+    <div class="progress-container" *ngIf="isAnalyzing">
+      <mat-progress-bar mode="determinate" [value]="analysisProgress"></mat-progress-bar>
+      <p class="progress-text">{{ progressText }}</p>
+    </div>
+  </div>
+  
+  <!-- Camera Modal -->
+  <div class="camera-modal" *ngIf="showCamera">
+    <div class="camera-modal-content">
+      <div class="camera-header">
+        <h3>Take a Photo</h3>
+        <button mat-icon-button class="close-btn" (click)="closeCamera()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="camera-feed">
+        <video #videoElement autoplay></video>
+      </div>
+      <div class="camera-controls">
+        <button mat-raised-button color="warn" class="capture-btn" (click)="capturePhoto()">
+          <mat-icon>camera</mat-icon> Capture
+        </button>
+      </div>
+    </div>
+  </div>

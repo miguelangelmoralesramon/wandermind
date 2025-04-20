@@ -1,0 +1,40 @@
+<div class="location-details-container">
+    <div class="location-header">
+      <h2>{{locationData?.name}}</h2>
+      <p class="location-description">{{locationData?.description}}</p>
+      
+      <div *ngIf="locationData?.coordinates" class="coordinates">
+        <span class="coordinate">🌐 Lat: {{locationData?.coordinates?.latitude | number:'1.4-4'}}</span>
+        <span class="coordinate">Long: {{locationData?.coordinates?.longitude | number:'1.4-4'}}</span>
+      </div>
+    </div>
+    
+    <div class="location-content">
+      <div class="info-section history-section">
+        <h3>Historical Background</h3>
+        <p>{{locationData?.history}}</p>
+      </div>
+      
+      <div class="info-section cultural-section">
+        <h3>Cultural Significance</h3>
+        <p>{{locationData?.culturalSignificance}}</p>
+      </div>
+    </div>
+    
+    <div class="action-buttons">
+      <a *ngIf="locationData?.coordinates" 
+         href="https://www.google.com/maps/search/?api=1&query={{locationData?.coordinates?.latitude}},{{locationData?.coordinates?.longitude}}" 
+         target="_blank" 
+         class="map-btn">
+        <span class="btn-icon">🗺️</span> Open in Google Maps
+      </a>
+      
+      <button class="save-btn">
+        <span class="btn-icon">⭐</span> Save to Favorites
+      </button>
+      
+      <button class="share-btn" (click)="shareLocation()">
+        <span class="btn-icon">📤</span> Share
+      </button>
+    </div>
+  </div>

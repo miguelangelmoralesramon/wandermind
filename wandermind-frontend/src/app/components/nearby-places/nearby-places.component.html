@@ -1,0 +1,103 @@
+<div class="nearby-places-container">
+    <div class="section-header">
+      <h2>Nearby Places</h2>
+      <p class="section-description">Discover interesting places around this location</p>
+      
+      <div class="filters">
+        <div class="filter-pills">
+          <button 
+            *ngFor="let category of categories" 
+            class="filter-pill" 
+            [class.active]="selectedCategory === category.value"
+            (click)="selectCategory(category.value)">
+            <span class="pill-icon">{{category.icon}}</span>
+            {{category.label}}
+          </button>
+        </div>
+        
+        <div class="distance-filter">
+          <label for="distance-range">Distance: {{selectedDistance}}km</label>
+          <input 
+            type="range" 
+            id="distance-range" 
+            min="1" 
+            max="10" 
+            step="1" 
+            [(ngModel)]="selectedDistance" 
+            (change)="onDistanceChange()">
+        </div>
+      </div>
+    </div>
+    
+    <div *ngIf="loading" class="loading-indicator">
+      <div class="loading-spinner"></div>
+      <p>Finding nearby places...</p>
+    </div>
+    
+    <div *ngIf="!loading && places.length === 0" class="no-results">
+      <div class="no-results-icon">🔍</div>
+      <p>No places found within {{selectedDistance}}km. Try expanding your search distance.</p>
+    </div>
+    
+    <div *ngIf="!loading && places.length > 0" class="places-grid">
+      <div *ngFor="let place of places" class="place-card">
+        <div class="place-image" [style.backgroundImage]="'url(' + place.image + ')'">
+          <div class="place-category">{{place.category}}</div>
+          <div class="place-distance">{{place.distance}} km</div>
+        </div>
+        <div class="place-details">
+          <h3 class="place-name">{{place.name}}</h3>
+          <p class="place-description">{{place.description}}</p>
+          <div class="place-actions">
+            <a [href]="place.mapUrl" target="_blank" class="directions-btn">
+              <span class="btn-icon">🧭</span> Directions
+            </a>
+            <button class="more-info-btn" (click)="showPlaceDetails(place)">
+              <span class="btn-icon">ℹ️</span> More Info
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Place Details Modal -->
+  <div *ngIf="selectedPlace" class="place-modal">
+    <div class="place-modal-content">
+      <div class="modal-header">
+        <h3>{{selectedPlace.name}}</h3>
+        <button class="close-btn" (click)="closeModal()">✖</button>
+      </div>
+      <div class="modal-body">
+        <div class="place-image-large" [style.backgroundImage]="'url(' + selectedPlace.image + ')'"></div>
+        <div class="place-full-details">
+          <p class="place-full-description">{{selectedPlace.fullDescription || selectedPlace.description}}</p>
+          
+          <div class="place-info-grid">
+            <div class="info-item">
+              <span class="info-label">Category</span>
+              <span class="info-value">{{selectedPlace.category}}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Distance</span>
+              <span class="info-value">{{selectedPlace.distance}} km</span>
+            </div>
+            <div class="info-item" *ngIf="selectedPlace.openingHours">
+              <span class="info-label">Opening Hours</span>
+              <span class="info-value">{{selectedPlace.openingHours}}</span>
+            </div>
+            <div class="info-item" *ngIf="selectedPlace.website">
+              <span class="info-label">Website</span>
+              <a [href]="selectedPlace.website" target="_blank" class="info-link">Visit Website</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a [href]="selectedPlace.mapUrl" target="_blank" class="directions-btn">
+          <span class="btn-icon">🧭</span> Get Directions
+        </a>
+        <button class="close-modal-btn" (click)="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,17 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Globe -->
+  <circle cx="400" cy="300" r="250" fill="#E3F2FD" stroke="#90CAF9" stroke-width="2"/>
+  
+  <!-- Simple Landmarks -->
+  <rect x="350" y="200" width="20" height="100" fill="#78909C"/>
+  <polygon points="300,300 400,300 350,200" fill="#FFCCBC"/>
+  <rect x="450" y="250" width="50" height="50" fill="#B2DFDB"/>
+  
+  <!-- Map Pins -->
+  <circle cx="300" cy="200" r="8" fill="#F44336"/>
+  <circle cx="400" cy="250" r="8" fill="#F44336"/>
+  <circle cx="500" cy="300" r="8" fill="#F44336"/>
+  
+  <!-- Simple Flight Paths -->
+  <path d="M300 200 Q400 150 500 300" stroke="#1A73E8" stroke-width="2" stroke-dasharray="5,5" fill="none"/>
+</svg>

@@ -1,0 +1,21 @@
+<div class="app-container">
+  <header class="app-header">
+    <div class="logo-container">
+      <h1 class="logo">🗺️ WanderMind</h1>
+      <p class="tagline">Your Multimodal Tourist Guide</p>
+    </div>
+    <nav class="main-nav">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+      <a routerLink="/explore" routerLinkActive="active">Explore</a>
+      <a routerLink="/about" routerLinkActive="active">About</a>
+    </nav>
+  </header>
+
+  <main class="app-content">
+    <router-outlet></router-outlet>
+  </main>
+
+  <footer class="app-footer">
+    <p>© 2025 WanderMind - AI-Powered Tourist Guide</p>
+  </footer>
+</div>
